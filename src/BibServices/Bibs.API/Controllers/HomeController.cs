@@ -12,4 +12,10 @@ public class HomeController : ControllerBase
     {
         _logger = logger;
     }
+
+    [HttpGet]
+    public ActionResult Get()
+    {
+        return Ok("Alive");
+    }
 }
