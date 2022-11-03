@@ -30,6 +30,8 @@ else
     app.UseAuthorization();
 }
 
+app.MapHealthChecks("/healthcheck", new HealthCheckOptions());
+//app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
 
 
 app.MapControllers();
