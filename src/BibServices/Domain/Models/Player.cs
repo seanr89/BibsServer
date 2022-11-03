@@ -1,12 +1,15 @@
+namespace Domain;
 
-namespace Bibs.API.Models;
-
-public class Club
+/// <summary>
+/// 
+/// </summary>
+public record Player
 {
 
     public Guid Id { get; set; }
+    public string Email { get; set; }
 
-    public Club()
+    public Player()
     {
     }
 

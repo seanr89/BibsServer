@@ -1,5 +1,4 @@
-
-namespace Bibs.API.Models;
+namespace Domain;
 
 /// <summary>
 /// New planned match record
