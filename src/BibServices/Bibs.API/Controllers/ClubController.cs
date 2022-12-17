@@ -1,3 +1,5 @@
+using Bibs.API.DTOs;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bibs.API.Controllers;
@@ -13,9 +15,53 @@ public class ClubController : ControllerBase
         _logger = logger;
     }
 
+    /// <summary>
+    /// Query all clubs
+    /// </summary>
+    /// <returns>Collection of ClubDTO records</returns>
     [HttpGet]
-    public ActionResult Get()
+    [ProducesResponseType(typeof(IEnumerable<Club>),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Get()
     {
-        return Ok("Alive");
+        _logger.LogInformation($"Club: Get");
+        // var result = await Mediator.Send(new GetClubsQuery());
+
+        // if (result.Any())
+        //     return Ok(result);
+
+        return NotFound("No records found");
+    }
+
+    /// <summary>
+    /// Query a single club
+    /// </summary>
+    /// <param name="id">unique Id of the club</param>
+    /// <returns></returns>
+    [HttpGet("id")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Club>> GetByID(Guid id)
+    {
+        _logger.LogInformation($"Club: GetById {id}");
+        throw new NotImplementedException();
+        // var result = await Mediator.Send(new GetClubQuery() { Id = id });
+        // if (result != null)
+        //     return Ok(result);
+        // return NotFound("Unable to find record!");
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(CreateClubDTO), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Create(CreateClubDTO club)
+    {
+        _logger.LogInformation($"Club: Create");
+        throw new NotImplementedException();
+        // var result = await Mediator.Send(new CreateClubCommand(club));
+        // if (result != Guid.Empty)
+        //     return CreatedAtRoute("GetClubById", new { id = result }, club);
+
+        // return BadRequest("Save failed");
     }
 }
