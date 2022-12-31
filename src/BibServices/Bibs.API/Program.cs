@@ -14,13 +14,13 @@ builder.Services.AddSwaggerGen();
 //Injected application logic!
 builder.Services.AddApplication();
 
-var app = builder.Build();
-
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
 builder.Services.AddHealthChecks()
-    .AddCheck<SampleHealthCheck>("Sample")
-    .AddNpgSql(connectionString);
+    .AddCheck<SampleHealthCheck>("Sample");
+    //.AddNpgSql(connectionString);
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

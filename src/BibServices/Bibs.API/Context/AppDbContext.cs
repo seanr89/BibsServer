@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Domain;
 
 namespace Bibs.API.Context;
 
@@ -34,7 +35,7 @@ public class AppDbContext : DbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ClubConfig());
+            //modelBuilder.ApplyConfiguration(new ClubConfig());
         }
 
         /// <summary>
