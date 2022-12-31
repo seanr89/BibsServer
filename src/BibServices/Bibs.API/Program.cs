@@ -20,6 +20,7 @@ builder.Services.AddHealthChecks()
     .AddCheck<SampleHealthCheck>("Sample");
     //.AddNpgSql(connectionString);
 
+//NB. Ensure no Services are injected after this!
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
