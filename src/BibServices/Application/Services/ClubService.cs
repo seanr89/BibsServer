@@ -1,13 +1,14 @@
+using Microsoft.Extensions.Logging;
 
 namespace Application.Services;
 
 public class ClubService
 {
-    private readonly ILogger _logger
-    public ClubService(ILogger logger)
-    {
-        _logger = logger;
-    }
+    // private readonly ILogger _logger;
+    // public ClubService(ILogger logger)
+    // {
+    //     _logger = logger;
+    // }
 
     public void GetAllClubs()
     {

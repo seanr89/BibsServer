@@ -5,8 +5,8 @@ Below are a list of of useful commands that can be used to support the extending
 
 ## Create Migration
 
-cmd is `dotnet-ef migrations add <ModelName> --startup-project ..\Bibs.API\Bibs.API.csproj --context AppDbContext`
-cmd is `dotnet ef migrations add <ModelName> --startup-project ../Bibs.API/Bibs.API.csproj --context AppDbContext`
+windows: cmd is `dotnet-ef migrations add <ModelName> --startup-project ..\Bibs.API\Bibs.API.csproj --context AppDbContext`
+linux/bash: cmd is `dotnet ef migrations add <ModelName> --startup-project ../Bibs.API/Bibs.API.csproj --context AppDbContext`
 
 ## Update to revert Migration
 
