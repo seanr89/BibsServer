@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 //Injected application logic!
 builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
