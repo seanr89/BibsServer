@@ -1,21 +1,31 @@
+using Domain;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Services;
 
-public class ClubService
+/// <summary>
+/// Application service for interacting with clubs
+/// </summary>
+public sealed class ClubService
 {
-    // private readonly ILogger _logger;
-    // public ClubService(ILogger logger)
-    // {
-    //     _logger = logger;
-    // }
+    private readonly ILogger<ClubService> _logger;
+    public ClubService(ILogger<ClubService> logger)
+    {
+        ArgumentNullException.ThrowIfNull(logger, "logger");
+        _logger = logger;
+    }
 
-    public void GetAllClubs()
+    public IEnumerable<Club> GetAllClubs()
     {
         throw new NotImplementedException();
     }
 
-    public void GetClubById(string id)
+    public Club GetClubById(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string CreateClub(Club club)
     {
         throw new NotImplementedException();
     }
