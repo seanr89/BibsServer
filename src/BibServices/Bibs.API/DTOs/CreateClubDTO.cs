@@ -7,7 +7,7 @@ public class CreateClubDTO
     {
     }
 
-    public override string? ToString()
+    public override string ToString()
     {
         return base.ToString();
     }
