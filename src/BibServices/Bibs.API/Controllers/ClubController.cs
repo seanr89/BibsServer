@@ -24,11 +24,10 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get()
     {
-        // _logger.LogInformation($"Club: Get");
-        // var result = await Mediator.Send(new GetClubsQuery());
+        var result = await _clubService.GetAllClubs();
 
-        // if (result.Any())
-        //     return Ok(result);
+        if (result.Any())
+            return Ok(result);
 
         return NotFound("No records found");
     }

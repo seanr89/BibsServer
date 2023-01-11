@@ -1,22 +1,28 @@
 
 using Domain;
+using Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repos;
 
 public class ClubsRepository : IClubsRepository
 {
-    public Task<IEnumerable<Club>> GetActiveClubsAsync()
+    private readonly AppDbContext _context;
+    public ClubsRepository(AppDbContext context)
     {
-        throw new NotImplementedException();
+        ArgumentNullException.ThrowIfNull(context, "dbContext");
+        _context = context;
     }
 
-    public Task<IEnumerable<Club>> GetAllClubsAsync()
+    public async Task<IEnumerable<Club>> GetActiveClubsAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Clubs.Where(c => c.Active == true).ToListAsync();
     }
 
-    public Task<Club> GetClubAsync(Guid id)
+    public async Task<IEnumerable<Club>> GetAllClubsAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Clubs.ToListAsync();
     }
+
+    public async Task<Club> GetClubAsync(Guid id) => await _context.Clubs.FirstOrDefaultAsync(c => c.Id == id);
 }

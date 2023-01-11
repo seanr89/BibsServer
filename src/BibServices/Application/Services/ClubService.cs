@@ -1,4 +1,5 @@
 using Domain;
+using Infrastructure.Repos;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Services;
@@ -9,20 +10,22 @@ namespace Application.Services;
 public sealed class ClubService
 {
     private readonly ILogger<ClubService> _logger;
-    public ClubService(ILogger<ClubService> logger)
+    private readonly IClubsRepository _clubsRepository;
+    public ClubService(ILogger<ClubService> logger, IClubsRepository clubsRepository)
     {
         ArgumentNullException.ThrowIfNull(logger, "logger");
         _logger = logger;
+        _clubsRepository = clubsRepository;
     }
 
-    public IEnumerable<Club> GetAllClubs()
+    public async Task<IEnumerable<Club>> GetAllClubs()
     {
-        throw new NotImplementedException();
+        return await _clubsRepository.GetAllClubsAsync();
     }
 
-    public Club GetClubById(string id)
+    public async Task<Club> GetClubById(Guid id)
     {
-        throw new NotImplementedException();
+        return await _clubsRepository.GetClubAsync(id);
     }
 
     public string CreateClub(Club club)

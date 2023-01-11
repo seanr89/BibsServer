@@ -7,7 +7,6 @@ public class AppDbContext : DbContext
 {
     public DbSet<Club> Clubs { get; set; }
 
-
     public AppDbContext()
     {
     }
