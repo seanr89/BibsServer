@@ -1,3 +1,4 @@
+using Application.Services;
 using Bibs.API.DTOs;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +9,10 @@ namespace Bibs.API.Controllers;
 [Route("[controller]")]
 public class ClubController : ControllerBase
 {
-    private readonly ILogger<ClubController> _logger;
-
-    public ClubController(ILogger<ClubController> logger)
+    private readonly ClubService _clubService;
+    public ClubController(ClubService clubService)
     {
-        _logger = logger;
+        _clubService = clubService;
     }
 
     /// <summary>
@@ -24,11 +24,10 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get()
     {
-        _logger.LogInformation($"Club: Get");
-        // var result = await Mediator.Send(new GetClubsQuery());
+        var result = await _clubService.GetAllClubs();
 
-        // if (result.Any())
-        //     return Ok(result);
+        if (result.Any())
+            return Ok(result);
 
         return NotFound("No records found");
     }
@@ -43,12 +42,8 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Club>> GetByID(Guid id)
     {
-        _logger.LogInformation($"Club: GetById {id}");
+        // _logger.LogInformation($"Club: GetById {id}");
         throw new NotImplementedException();
-        // var result = await Mediator.Send(new GetClubQuery() { Id = id });
-        // if (result != null)
-        //     return Ok(result);
-        // return NotFound("Unable to find record!");
     }
 
     [HttpPost]
@@ -56,12 +51,7 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(CreateClubDTO club)
     {
-        _logger.LogInformation($"Club: Create");
+        // _logger.LogInformation($"Club: Create");
         throw new NotImplementedException();
-        // var result = await Mediator.Send(new CreateClubCommand(club));
-        // if (result != Guid.Empty)
-        //     return CreatedAtRoute("GetClubById", new { id = result }, club);
-
-        // return BadRequest("Save failed");
     }
 }

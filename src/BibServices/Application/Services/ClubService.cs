@@ -1,20 +1,34 @@
+using Domain;
+using Infrastructure.Repos;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Services;
 
-public class ClubService
+/// <summary>
+/// Application service for interacting with clubs
+/// </summary>
+public sealed class ClubService
 {
-    private readonly ILogger _logger
-    public ClubService(ILogger logger)
+    private readonly ILogger<ClubService> _logger;
+    private readonly IClubsRepository _clubsRepository;
+    public ClubService(ILogger<ClubService> logger, IClubsRepository clubsRepository)
     {
+        ArgumentNullException.ThrowIfNull(logger, "logger");
         _logger = logger;
+        _clubsRepository = clubsRepository;
     }
 
-    public void GetAllClubs()
+    public async Task<IEnumerable<Club>> GetAllClubs()
     {
-        throw new NotImplementedException();
+        return await _clubsRepository.GetAllClubsAsync();
     }
 
-    public void GetClubById(string id)
+    public async Task<Club> GetClubById(Guid id)
+    {
+        return await _clubsRepository.GetClubAsync(id);
+    }
+
+    public string CreateClub(Club club)
     {
         throw new NotImplementedException();
     }
