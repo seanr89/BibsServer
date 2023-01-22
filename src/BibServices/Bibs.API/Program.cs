@@ -1,10 +1,15 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Bibs.API.Extensions;
 using Application;
+using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+IConfiguration configuration = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json")
+                            .AddEnvironmentVariables()
+                            .Build();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -13,6 +18,7 @@ builder.Services.AddSwaggerGen();
 
 //Injected application logic!
 builder.Services.AddApplication();
+builder.Services.AddInfrastructure(configuration);
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
