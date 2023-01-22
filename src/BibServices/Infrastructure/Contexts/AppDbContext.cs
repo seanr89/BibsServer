@@ -6,6 +6,7 @@ namespace Infrastructure.Contexts;
 public class AppDbContext : DbContext
 {
     public DbSet<Club> Clubs { get; set; }
+    public DbSet<Member> Members { get; set; }
 
     public AppDbContext()
     {
