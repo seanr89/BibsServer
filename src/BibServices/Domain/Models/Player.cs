@@ -1,7 +1,7 @@
 namespace Domain;
 
 /// <summary>
-/// A record of someone who plays
+/// Planned entity for detailing someone who played a matched
 /// </summary>
 public class Player : AuditableEntity
 {
@@ -10,6 +10,7 @@ public class Player : AuditableEntity
     public string Email { get; set; }
     public string Name { get; set; }
     public bool Active { get; private set; }
+    public bool IsMember { get; private set; }
     /// <summary>
     /// Details for the specific club
     /// </summary>

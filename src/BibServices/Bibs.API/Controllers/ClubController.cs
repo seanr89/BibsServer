@@ -43,7 +43,12 @@ public class ClubController : ControllerBase
     public async Task<ActionResult<Club>> GetByID(Guid id)
     {
         // _logger.LogInformation($"Club: GetById {id}");
-        throw new NotImplementedException();
+        var result = await _clubService.GetClubById(id);
+
+        if (result != null)
+            return Ok(result);
+
+        return NotFound("No club found");
     }
 
     [HttpPost]

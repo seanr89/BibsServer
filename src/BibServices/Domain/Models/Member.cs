@@ -1,6 +1,7 @@
 namespace Domain;
 /// <summary>
-/// Domain for Member records to be included/detailed on Clubs
+/// Domain for pre-selectable Club member selection
+/// So that manual player entry does not need to occur
 /// /// </summary>
 public class Member : AuditableEntity
 {
