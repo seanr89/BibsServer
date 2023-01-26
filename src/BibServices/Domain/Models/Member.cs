@@ -10,6 +10,7 @@ public class Member : AuditableEntity
     public string Name { get; private set; }
     public bool Active { get; private set; }
     public Club Club { get; private set; }
+    public double BaseRating { get; set; }
 
     #region Constructors
 
@@ -37,7 +38,7 @@ public class Member : AuditableEntity
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="csvLine">id,name,email,active</param>
+    /// <param name="csvLine">id,name,email,active,baserating</param>
     /// <returns></returns>
     public static Member FromCsv(string csvLine)
     {
@@ -46,6 +47,7 @@ public class Member : AuditableEntity
         rec.Name = values[1];
         rec.Email = values[2];
         rec.Active = Convert.ToBoolean(values[3]);
+        rec.BaseRating = Convert.ToDouble(values[4]);
         return rec;
     }
 
