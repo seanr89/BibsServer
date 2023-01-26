@@ -28,8 +28,13 @@ public sealed class ClubService
         return await _clubsRepository.GetClubAsync(id);
     }
 
-    public string CreateClub(Club club)
+    public async Task<Guid> CreateClub(Club club)
     {
-        throw new NotImplementedException();
+        var result = await _clubsRepository.CreateClubAsync(club);
+        if (result > 0)
+        {
+            return club.Id;
+        }
+        return Guid.Empty;
     }
 }

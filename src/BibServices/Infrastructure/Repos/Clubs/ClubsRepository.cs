@@ -25,4 +25,16 @@ public class ClubsRepository : IClubsRepository
     }
 
     public async Task<Club> GetClubAsync(Guid id) => await _context.Clubs.FirstOrDefaultAsync(c => c.Id == id);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="club"></param>
+    /// <returns></returns>
+    public async Task<int> CreateClubAsync(Club club)
+    {
+        _context.Clubs.Add(club);
+        var result = await _context.SaveChangesAsync();
+        return result;
+    }
 }
