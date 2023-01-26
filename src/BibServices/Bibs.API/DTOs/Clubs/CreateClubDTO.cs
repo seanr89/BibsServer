@@ -18,11 +18,7 @@ public record CreateClubDTO
 
     public static implicit operator Club(CreateClubDTO dto)
     {
-        return new Club(){
-            Name = dto.Name,
-            Active = dto.Active,
-            Private = dto.Private
-        };
+        return new Club(dto.Name, dto.Active, dto.Private);
     }
 
     #endregion
