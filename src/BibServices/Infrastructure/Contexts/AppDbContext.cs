@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using Infrastructure.Configs;
 
 namespace Infrastructure.Contexts;
 
@@ -32,7 +33,8 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //modelBuilder.ApplyConfiguration(new ClubConfig());
+        modelBuilder.ApplyConfiguration(new ClubConfig());
+        modelBuilder.ApplyConfiguration(new MemberConfig());
     }
 
     /// <summary>
