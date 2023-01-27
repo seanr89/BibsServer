@@ -23,7 +23,7 @@ public sealed class ClubService
         return await _clubsRepository.GetAllClubsAsync();
     }
 
-    public async Task<Club> GetClubById(Guid id)
+    public async Task<Club?> GetClubById(Guid id)
     {
         return await _clubsRepository.GetClubAsync(id);
     }
