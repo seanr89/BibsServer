@@ -13,3 +13,7 @@ Github is used for the following:
 -   Source Control and access management
 -   Issue and project tracking
 -   CI/CD processes via actions
+
+## Docker Commands
+
+Run default build: `docker build -t bibsapp .`

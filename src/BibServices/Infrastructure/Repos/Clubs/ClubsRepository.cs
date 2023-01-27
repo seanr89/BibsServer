@@ -24,7 +24,7 @@ public class ClubsRepository : IClubsRepository
         return await _context.Clubs.ToListAsync();
     }
 
-    public async Task<Club> GetClubAsync(Guid id) => await _context.Clubs.FirstOrDefaultAsync(c => c.Id == id);
+    public async Task<Club?> GetClubAsync(Guid id) => await _context.Clubs.FirstOrDefaultAsync(c => c.Id == id);
 
     /// <summary>
     /// 
