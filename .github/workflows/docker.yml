@@ -39,5 +39,5 @@ jobs:
               uses: docker/build-push-action@v2
               with:
                 push: true
-                tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/bibSample:${{ github.sha }}
+                tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/bibsample:${{ github.sha }}
                 file: src/BibServices/Dockerfile
