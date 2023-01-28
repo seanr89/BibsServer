@@ -24,6 +24,7 @@ builder.Services.AddInfrastructure(configuration);
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
 builder.Services.AddHealthChecks()
     .AddCheck<SampleHealthCheck>("Sample");
+builder.Services.AddHealthChecksUI().AddInMemoryStorage();
     //.AddNpgSql(connectionString);
 
 //NB. Ensure no Services are injected after this!
