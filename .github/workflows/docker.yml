@@ -28,14 +28,14 @@ jobs:
             - name: Build the Docker image
               run: docker build . --file Dockerfile --tag git_docker:$(date +%s)
 
-            - name: 'Docker Login'
+            - name: Docker Login to ACR
               uses: azure/docker-login@v1
               with:
                 login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
                 username: ${{ secrets.REGISTRY_USERNAME }}
                 password: ${{ secrets.REGISTRY_PASSWORD }}
  
-            - name: Build the frontend image and push it to ACR
+            - name: Build the back-end image and push it to ACR
               uses: docker/build-push-action@v2
               with:
                 push: true

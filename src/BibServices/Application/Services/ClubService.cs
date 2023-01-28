@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 namespace Application.Services;
 
 /// <summary>
-/// Application service for interacting with clubs
+/// Application service for interacting with repos and infra
 /// </summary>
 public sealed class ClubService
 {
