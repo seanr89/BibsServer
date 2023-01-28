@@ -25,8 +25,8 @@ jobs:
                 working-directory: ./src/BibServices/
         steps:
             - uses: actions/checkout@v2
-            - name: Build the Docker image
-              run: docker build . --file Dockerfile --tag git_docker:$(date +%s)
+            # - name: Build the Docker image
+            #   run: docker build . --file Dockerfile --tag git_docker:$(date +%s)
 
             - name: Docker Login to ACR
               uses: azure/docker-login@v1
@@ -34,10 +34,11 @@ jobs:
                 login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
                 username: ${{ secrets.REGISTRY_USERNAME }}
                 password: ${{ secrets.REGISTRY_PASSWORD }}
- 
-            - name: Build the back-end image and push it to ACR
-              uses: docker/build-push-action@v2
-              with:
-                push: true
-                tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/bibsample:${{ github.sha }}
-                file: src/BibServices/Dockerfile
+                - run: |
+                    docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/appdb:${{ github.sha }}
+                    docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/appdb:${{ github.sha }}
+            # - name: Build image and push to ACR
+            #   uses: docker/build-push-action@v2
+            #   with:
+            #     push: true
+            #     tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/bibsample:${{ github.sha }}
