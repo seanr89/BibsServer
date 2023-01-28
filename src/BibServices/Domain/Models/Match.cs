@@ -2,6 +2,7 @@ namespace Domain;
 
 /// <summary>
 /// New planned match record
+/// TODO
 /// </summary>
 public record Match
 {

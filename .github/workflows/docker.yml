@@ -4,8 +4,9 @@ on:
     # Trigger the workflow on push or pull request,
     # but only for the main branch
     push:
-        branches:
-            - main
+        # branches:
+        #     - main
+        #     - ••/••
         paths:
             - 'src/BibServices/**'
     pull_request:
@@ -24,32 +25,20 @@ jobs:
                 working-directory: ./src/BibServices/
         steps:
             - uses: actions/checkout@v2
-            - name: Build the Docker image
-              run: docker build . --file Dockerfile --tag git_docker:$(date +%s)
+            # - name: Build the Docker image
+            #   run: docker build . --file Dockerfile --tag git_docker:$(date +%s)
 
-            - name: 'Login via Azure CLI'
-          uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
-        - name: 'Build and push image'
-          uses: azure/docker-login@v1
-          with:
-            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-            username: ${{ secrets.REGISTRY_USERNAME }}
-            password: ${{ secrets.REGISTRY_PASSWORD }}
-        - run: |
-            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
-
-        - name: 'Deploy to Azure Container Instances'
-          uses: 'azure/aci-deploy@v1'
-          with:
-            resource-group: ${{ secrets.RESOURCE_GROUP }}
-            dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-            image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
-            registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-            registry-username: ${{ secrets.REGISTRY_USERNAME }}
-            registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-            name: aci-sampleapp
-            location: 'west us'
+            - name: Docker Login to ACR
+              uses: azure/docker-login@v1
+              with:
+                login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+                username: ${{ secrets.REGISTRY_USERNAME }}
+                password: ${{ secrets.REGISTRY_PASSWORD }}
+            - run: |
+                docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/appdb:${{ github.sha }}
+                docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/appdb:${{ github.sha }}
+            # - name: Build image and push to ACR
+            #   uses: docker/build-push-action@v2
+            #   with:
+            #     push: true
+            #     tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/bibsample:${{ github.sha }}

@@ -25,7 +25,6 @@ public class ClubController : ControllerBase
     public async Task<IActionResult> Get()
     {
         var result = await _clubService.GetAllClubs();
-
         if (result.Any())
             return Ok(result);
 
@@ -42,16 +41,23 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Club>> GetByID(Guid id)
     {
-        // _logger.LogInformation($"Club: GetById {id}");
-        throw new NotImplementedException();
+        var result = await _clubService.GetClubById(id);
+        if (result != null)
+            return Ok(result);
+
+        return NotFound("No club found");
     }
 
     [HttpPost]
     [ProducesResponseType(typeof(CreateClubDTO), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create(CreateClubDTO club)
+    public async Task<IActionResult> Create(CreateClubDTO dto)
     {
-        // _logger.LogInformation($"Club: Create");
-        throw new NotImplementedException();
+        var club = (Club)dto;
+        var result = await _clubService.CreateClub(club);
+        if (result != Guid.Empty)
+            return CreatedAtRoute("GetById", new { id = result }, club);
+
+        return BadRequest("Save failed");
     }
 }

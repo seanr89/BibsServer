@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 namespace Application.Services;
 
 /// <summary>
-/// Application service for interacting with clubs
+/// Application service for interacting with repos and infra
 /// </summary>
 public sealed class ClubService
 {
@@ -23,13 +23,18 @@ public sealed class ClubService
         return await _clubsRepository.GetAllClubsAsync();
     }
 
-    public async Task<Club> GetClubById(Guid id)
+    public async Task<Club?> GetClubById(Guid id)
     {
         return await _clubsRepository.GetClubAsync(id);
     }
 
-    public string CreateClub(Club club)
+    public async Task<Guid> CreateClub(Club club)
     {
-        throw new NotImplementedException();
+        var result = await _clubsRepository.CreateClubAsync(club);
+        if (result > 0)
+        {
+            return club.Id;
+        }
+        return Guid.Empty;
     }
 }

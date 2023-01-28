@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using Infrastructure.Configs;
 
 namespace Infrastructure.Contexts;
 
 public class AppDbContext : DbContext
 {
     public DbSet<Club> Clubs { get; set; }
+    public DbSet<Member> Members { get; set; }
 
     public AppDbContext()
     {
@@ -18,20 +20,12 @@ public class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // var configuration = new ConfigurationBuilder()
-        // .SetBasePath(Directory.GetCurrentDirectory())
-        // .AddJsonFile("appsettings.json")
-        // .Build();
-
-        // if(!optionsBuilder.IsConfigured)
-        // {
-        //     optionsBuilder.UseNpgsql(configuration.GetValue<string>("PostgreSQL:ConnectionString"));
-        // }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //modelBuilder.ApplyConfiguration(new ClubConfig());
+        modelBuilder.ApplyConfiguration(new ClubConfig());
+        modelBuilder.ApplyConfiguration(new MemberConfig());
     }
 
     /// <summary>
