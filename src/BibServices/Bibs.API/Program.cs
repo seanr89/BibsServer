@@ -21,6 +21,9 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<PostgreSettings>(
+                builder.Configuration.GetSection("PostgreSQL"));
+
 //Injected application logic!
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(configuration);

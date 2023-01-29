@@ -1,4 +1,7 @@
+using Infrastructure;
 using Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Bibs.API.Extensions;
 public static class ServiceExtensions
@@ -30,10 +33,13 @@ public static class ServiceExtensions
         try{
             var provider = services.BuildServiceProvider();
             var context = provider.GetRequiredService<AppDbContext>();
-            //var opt = provider.GetRequiredService<IOptions<PostgreSQLSettings>>().Value;
+            var opt = provider.GetRequiredService<IOptions<PostgreSettings>>().Value;
     
-            // if(opt.Migrate)
-            //     context.Database.Migrate();
+            if(opt.Migrate)
+                context.Database.Migrate();
+            
+            if(opt.SeedData)
+                DbSeeding.TryRunSeed(context).Wait();
             
         }
         catch(Exception e)

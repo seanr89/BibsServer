@@ -4,9 +4,8 @@ on:
     # Trigger the workflow on push or pull request,
     # but only for the main branch
     push:
-        # branches:
-        #     - main
-        #     - ••/••
+        branches:
+            - main
         paths:
             - 'src/BibServices/**'
     pull_request:
@@ -25,10 +24,8 @@ jobs:
                 working-directory: ./src/BibServices/
         steps:
             - uses: actions/checkout@v2
-            # - name: Build the Docker image
-            #   run: docker build . --file Dockerfile --tag git_docker:$(date +%s)
 
-            - name: Docker Login to ACR
+            - name: Docker Login to ACR and Push
               uses: azure/docker-login@v1
               with:
                 login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
@@ -37,8 +34,3 @@ jobs:
             - run: |
                 docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/appdb:${{ github.sha }}
                 docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/appdb:${{ github.sha }}
-            # - name: Build image and push to ACR
-            #   uses: docker/build-push-action@v2
-            #   with:
-            #     push: true
-            #     tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/bibsample:${{ github.sha }}

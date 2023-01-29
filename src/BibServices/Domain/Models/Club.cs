@@ -29,6 +29,16 @@ public class Club : AuditableEntity
     public void Activate() => this.Active = true;
     public void DeActivate() => this.Active = false;
 
+    /// <summary>
+    /// Supports single member addition
+    /// </summary>
+    /// <param name="member">Single Member object</param>
+    public void AddMember(Member member)
+    {
+        if (member != null && CheckForDuplicateMember(member) == false)
+            this.Members.Add(member);
+    }
+
     #endregion
 
     #region overrides
@@ -36,6 +46,21 @@ public class Club : AuditableEntity
     public override string? ToString()
     {
         return base.ToString();
+    }
+
+    #endregion
+
+    #region private helpers
+
+    /// <summary>
+    /// Simple private operation to check if the record already matches one in the list
+    /// </summary>
+    /// <param name="mem">Member object to search</param>
+    /// <returns>True if member with email already exists
+    /// False if not</returns>
+    bool CheckForDuplicateMember(Member mem)
+    {
+        return this.Members.Any(m => m.Email == mem.Email);
     }
 
     #endregion
