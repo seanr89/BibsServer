@@ -1,11 +1,11 @@
 # Step 1: Specify your base image
-FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
 COPY /Bibs.API/Bibs.API.csproj Bibs.API/
-COPY /Domain/Domain.csproj Domain/
-COPY /Infrastructure/Infrastructure.csproj Infrastructure/
-COPY /Application/Application.csproj Application/
+# COPY /Domain/Domain.csproj Domain/
+# COPY /Infrastructure/Infrastructure.csproj Infrastructure/
+# COPY /Application/Application.csproj Application/
 
 # Step 2: Copy project file to the ./ container folder
 # COPY *.csproj ./
@@ -16,7 +16,8 @@ RUN dotnet restore Bibs.API/Bibs.API.csproj
 COPY . .
 # Step 5: Build the app in Release mode
 # Step 6: Publish the application
-RUN dotnet publish Bibs.API/Bibs.API.csproj -c Release -r linux-musl-x64 --self-contained true /p:PublishTrimmed=true -o out
+# RUN dotnet publish Bibs.API/Bibs.API.csproj -c Release -r linux-musl-x64 --self-contained true /p:PublishTrimmed=true -o out
+RUN dotnet publish Bibs.API/Bibs.API.csproj -c Release -r linux-musl-x64 --self-contained true -o out
 #RUN dotnet publish Bibs.API/Bibs.API.csproj -c Release -o out
 
 # Step 7: Expose port 80 in the container - Moved

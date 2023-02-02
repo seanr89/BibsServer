@@ -1,4 +1,4 @@
-using Domain;
+// using Domain;
 
 namespace Bibs.API.DTOs;
 
@@ -10,14 +10,14 @@ public record ClubDTO
 
     #region Implicit DTO Mapping
 
-    public static implicit operator ClubDTO(Club model)
-    {
-        return new ClubDTO(){
-            Name = model.Name,
-            Active = model.Active,
-            Private = model.Private
-        };
-    }
+    // public static implicit operator ClubDTO(Club model)
+    // {
+    //     return new ClubDTO(){
+    //         Name = model.Name,
+    //         Active = model.Active,
+    //         Private = model.Private
+    //     };
+    // }
 
     #endregion
 }

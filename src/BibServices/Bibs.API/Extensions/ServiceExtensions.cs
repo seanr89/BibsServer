@@ -1,5 +1,5 @@
-using Infrastructure;
-using Infrastructure.Contexts;
+// using Infrastructure;
+// using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -28,23 +28,23 @@ public static class ServiceExtensions
     /// Setup EFCore DB and Seed any data if necessary
     /// </summary>
     /// <param name="services"></param>
-    public static void RunDBMigration(IServiceCollection services)
-    {
-        try{
-            var provider = services.BuildServiceProvider();
-            var context = provider.GetRequiredService<AppDbContext>();
-            var opt = provider.GetRequiredService<IOptions<PostgreSettings>>().Value;
+    // public static void RunDBMigration(IServiceCollection services)
+    // {
+    //     try{
+    //         var provider = services.BuildServiceProvider();
+    //         var context = provider.GetRequiredService<AppDbContext>();
+    //         var opt = provider.GetRequiredService<IOptions<PostgreSettings>>().Value;
     
-            if(opt.Migrate)
-                context.Database.Migrate();
+    //         if(opt.Migrate)
+    //             context.Database.Migrate();
             
-            if(opt.SeedData)
-                DbSeeding.TryRunSeed(context).Wait();
+    //         if(opt.SeedData)
+    //             DbSeeding.TryRunSeed(context).Wait();
             
-        }
-        catch(Exception e)
-        {
-            Console.WriteLine($"Exception caught: {e.Message}");
-        }
-    }
+    //     }
+    //     catch(Exception e)
+    //     {
+    //         Console.WriteLine($"Exception caught: {e.Message}");
+    //     }
+    // }
 }
