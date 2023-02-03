@@ -1,14 +1,14 @@
-// using Microsoft.AspNetCore.Mvc;
-// namespace Bibs.API.Controllers;
+using Microsoft.AspNetCore.Mvc;
+namespace Bibs.API.Controllers;
 
-// [ApiController]
-// [Route("[controller]")]
-// public class MemberController : ControllerBase
-// {
-//     private readonly ILogger<MemberController> _logger;
+[ApiController]
+[Route("[controller]")]
+public class MemberController : ControllerBase
+{
+    private readonly ILogger<MemberController> _logger;
 
-//     public MemberController(ILogger<MemberController> logger)
-//     {
-//         _logger = logger;
-//     }
-// }
+    public MemberController(ILogger<MemberController> logger)
+    {
+        _logger = logger;
+    }
+}

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Bibs.API.Extensions;
-// using Application;
-// using Infrastructure;
+using Application;
+using Infrastructure;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Newtonsoft.Json;
 
@@ -25,8 +25,8 @@ builder.Services.Configure<PostgreSettings>(
                 builder.Configuration.GetSection("PostgreSQL"));
 
 //Injected application logic!
-// builder.Services.AddApplication();
-// builder.Services.AddInfrastructure(configuration);
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(configuration);
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
@@ -42,18 +42,18 @@ builder.Services.AddHealthChecksUI(setup =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-// else
-// {
-//     app.UseHttpsRedirection();
-//     app.UseAuthorization();
-// }
+}
+else
+{
+    // app.UseHttpsRedirection();
+    // app.UseAuthorization();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
 {
