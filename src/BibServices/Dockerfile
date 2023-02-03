@@ -3,9 +3,9 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
 COPY /Bibs.API/Bibs.API.csproj Bibs.API/
-# COPY /Domain/Domain.csproj Domain/
-# COPY /Infrastructure/Infrastructure.csproj Infrastructure/
-# COPY /Application/Application.csproj Application/
+COPY /Domain/Domain.csproj Domain/
+COPY /Infrastructure/Infrastructure.csproj Infrastructure/
+COPY /Application/Application.csproj Application/
 
 # Step 2: Copy project file to the ./ container folder
 # COPY *.csproj ./

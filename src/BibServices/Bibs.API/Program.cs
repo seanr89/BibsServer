@@ -32,11 +32,11 @@ builder.Services.Configure<PostgreSettings>(
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
 builder.Services.AddHealthChecks()
     .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
-// builder.Services.AddHealthChecksUI(setup => 
-//     setup.SetEvaluationTimeInSeconds(45)
-//     // Set the maximum history entries by endpoint that will be served by the UI api middleware
-//     .MaximumHistoryEntriesPerEndpoint(25))
-//     .AddInMemoryStorage();
+builder.Services.AddHealthChecksUI(setup => 
+    setup.SetEvaluationTimeInSeconds(45)
+    // Set the maximum history entries by endpoint that will be served by the UI api middleware
+    .MaximumHistoryEntriesPerEndpoint(25))
+    .AddInMemoryStorage();
 
 //NB. Ensure no services are injected after this!
 var app = builder.Build();
@@ -55,11 +55,11 @@ var app = builder.Build();
 //     app.UseAuthorization();
 // }
 
-// app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
-// {
-//     Predicate = _ => false
-// });
-// app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
+app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
+{
+    Predicate = _ => false
+});
+app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
 
 app.MapControllers();
 app.Run();
