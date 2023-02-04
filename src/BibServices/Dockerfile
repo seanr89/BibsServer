@@ -27,6 +27,6 @@ EXPOSE 80
 # Build runtime image
 # Step 8: Move the /app folder and run the compiled app
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine-amd64 as runtime
-WORKDIR /app
+WORKDIR /app .
 # COPY --from=build /app/out .
 ENTRYPOINT ["dotnet", "Bibs.API.dll"]

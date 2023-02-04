@@ -4,6 +4,7 @@ using Application;
 using Infrastructure;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Newtonsoft.Json;
+using HealthChecks.UI.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,13 +31,14 @@ builder.Services.AddInfrastructure(configuration);
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
-builder.Services.AddHealthChecks()
-    .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
-builder.Services.AddHealthChecksUI(setup => 
-    setup.SetEvaluationTimeInSeconds(45)
-    // Set the maximum history entries by endpoint that will be served by the UI api middleware
-    .MaximumHistoryEntriesPerEndpoint(25))
-    .AddInMemoryStorage();
+// builder.Services.AddHealthChecks()
+//     .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Unhealthy);
+// builder.Services.AddHealthChecksUI(setup => 
+//     setup.SetEvaluationTimeInSeconds(45)
+//     // Set the maximum history entries by endpoint that will be served by the UI api middleware
+//     .MaximumHistoryEntriesPerEndpoint(25)
+//     .AddHealthCheckEndpoint("default api", "/home"))
+//     .AddInMemoryStorage();
 
 //NB. Ensure no services are injected after this!
 var app = builder.Build();
@@ -55,11 +57,19 @@ else
     app.UseSwaggerUI();
 }
 
-app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
-{
-    Predicate = _ => false
-});
-app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
+// app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
+app
+.UseRouting()
+.UseEndpoints(config => {
+    config.MapControllers();
+    // config.MapHealthChecks("/hc", new HealthCheckOptions()
+    //         {
+    //             Predicate = _ => true,
+    //             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    //         });
+    // config.MapHealthChecksUI();
+    }
+); //healthchecks-ui
 
-app.MapControllers();
+
 app.Run();
