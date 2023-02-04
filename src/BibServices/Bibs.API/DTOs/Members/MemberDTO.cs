@@ -1,5 +1,3 @@
-
-
 using Domain;
 
 namespace Bibs.API.DTOs;

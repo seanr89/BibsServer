@@ -1,5 +1,4 @@
 using Domain;
-
 namespace Bibs.API.DTOs;
 
 public record ClubDTO

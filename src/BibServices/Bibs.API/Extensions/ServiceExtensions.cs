@@ -19,11 +19,6 @@ public static class ServiceExtensions
         //builder => builder.AllowAnyOrigin()
     }
 
-    // public static void ConfigureHttpClient(this IServiceCollection services, IConfiguration configuration)
-    // {
-    //     services.AddHttpClient();
-    // }
-
     /// <summary>
     /// Setup EFCore DB and Seed any data if necessary
     /// </summary>

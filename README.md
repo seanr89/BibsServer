@@ -17,3 +17,7 @@ Github is used for the following:
 ## Docker Commands
 
 Run default build: `docker build -t bibsapp .`
+
+Run image: `docker run --name bisapp -p 8081:80 -d bibsapp`
+
+Review logs: `docker logs <containerid>`
