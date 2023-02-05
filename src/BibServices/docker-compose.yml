@@ -1,0 +1,39 @@
+version: '3.8'
+
+networks:
+    dockerapi-dev:
+        driver: bridge
+
+services:
+    web:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        depends_on: [postgres_image]
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - PostgreSQL__ConnectionString='server=localhost;port=5432;userid=postgres;database=clubsDb;Password=4y7sV96vA9wv46VR'
+        ports:
+            - '8080:80'
+        networks:
+            - dockerapi-dev
+
+    postgres_image:
+        container_name: 'postgres'
+        image: postgres:latest
+        environment:
+            # change this for a "real" app!
+            POSTGRES_PASSWORD: '4y7sV96vA9wv46VR'
+            POSTGRES_USER: 'postgres_user'
+            POSTGES_DB: 'clubsDb'
+            PGDATA: /data/postgres
+        restart: always
+        volumes:
+            - postgres:/data/postgres
+        networks:
+            - dockerapi-dev
+        ports:
+            - 5432:5432
+
+volumes:
+    postgres:

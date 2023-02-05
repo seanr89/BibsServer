@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Bibs.API.Extensions;
 using Application;
 using Infrastructure;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Newtonsoft.Json;
 using HealthChecks.UI.Client;
 
@@ -26,19 +25,23 @@ builder.Services.Configure<PostgreSettings>(
                 builder.Configuration.GetSection("PostgreSQL"));
 
 //Injected application logic!
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure(configuration);
+// builder.Services.AddApplication();
+// builder.Services.AddInfrastructure(configuration);
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
-// builder.Services.AddHealthChecks()
-//     .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Unhealthy);
-// builder.Services.AddHealthChecksUI(setup => 
-//     setup.SetEvaluationTimeInSeconds(45)
-//     // Set the maximum history entries by endpoint that will be served by the UI api middleware
-//     .MaximumHistoryEntriesPerEndpoint(25)
-//     .AddHealthCheckEndpoint("default api", "/home"))
-//     .AddInMemoryStorage();
+
+builder.Services.AddHealthChecks()
+    .AddCheck<SampleHealthCheck>("Sample");
+builder.Services.AddHealthChecksUI(setup =>
+    {
+        setup.SetHeaderText("Storage providers demo");
+        //Maximum history entries by endpoint
+        setup.MaximumHistoryEntriesPerEndpoint(50);
+        //One endpoint is configured in appsettings, let's add another one programatically
+        setup.AddHealthCheckEndpoint("Endpoint2", "/random-health");
+    })
+    .AddInMemoryStorage();
 
 //NB. Ensure no services are injected after this!
 var app = builder.Build();
@@ -49,27 +52,36 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-else
-{
-    // app.UseHttpsRedirection();
-    // app.UseAuthorization();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// else
+// {
+//     // app.UseHttpsRedirection();
+//     // app.UseAuthorization();
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
 
-// app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
+
 app
 .UseRouting()
 .UseEndpoints(config => {
-    config.MapControllers();
-    // config.MapHealthChecks("/hc", new HealthCheckOptions()
-    //         {
-    //             Predicate = _ => true,
-    //             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-    //         });
-    // config.MapHealthChecksUI();
+    //config.MapControllers();
+    //config.MapHealthChecksUI();
+    config.MapHealthChecks("/healthz", new HealthCheckOptions()
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+    // config.MapHealthChecksUI(setup =>
+    //     {
+    //         setup.UIPath = "/show-health-ui"; // this is ui path in your browser
+    //         setup.ApiPath = "/health-ui-api"; // the UI ( spa app )  use this path to get information from the store ( this is NOT the healthz path, is internal ui api )
+    //         setup.PageTitle = "My wonderful Health Checks UI"; // the page title in <head>
+    //     });
     }
-); //healthchecks-ui
+); 
+app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
+// healthchecks-ui
 
+// app.MapControllers();
 
 app.Run();
