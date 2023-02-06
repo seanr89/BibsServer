@@ -35,20 +35,20 @@ public static class DbSeeding
 
     #region Club Default
 
-        static Club CreateDefaultClub()
-        {
-            var club = new Club("IT Science Park", true, false);
+    static Club CreateDefaultClub()
+    {
+        var club = new Club("IT Science Park", true, false);
 
-            club.AddMember(new Member("srafferty89@gmail.com", "Sean Rafferty", true));
-            club.AddMember(new Member("francis.donald@randox.com", "Francis Donald", true));
-            club.AddMember(new Member("ross.bratton@randox.com", "Ross Bratton", true));
-            club.AddMember(new Member("conor.devlin@randox.com", "Conor Devlin", true));
-            club.AddMember(new Member("steven.kennedy@randox.com", "Steve Kennedy", true));
-            club.AddMember(new Member("rory.corr@randox.com", "Rory Corr", true));
-            club.AddMember(new Member("michael.hayes@randox.com", "Michael Hayes", true));
+        club.AddMember(new Member("srafferty89@gmail.com", "Sean Rafferty", true));
+        club.AddMember(new Member("francis.donald@randox.com", "Francis Donald", true));
+        club.AddMember(new Member("ross.bratton@randox.com", "Ross Bratton", true));
+        club.AddMember(new Member("conor.devlin@randox.com", "Conor Devlin", true));
+        club.AddMember(new Member("steven.kennedy@randox.com", "Steve Kennedy", true));
+        club.AddMember(new Member("rory.corr@randox.com", "Rory Corr", true));
+        club.AddMember(new Member("michael.hayes@randox.com", "Michael Hayes", true));
 
-            return club;
-        }
+        return club;
+    }
 
-        #endregion
+    #endregion
 }
