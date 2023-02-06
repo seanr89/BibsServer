@@ -25,8 +25,8 @@ builder.Services.Configure<PostgreSettings>(
                 builder.Configuration.GetSection("PostgreSQL"));
 
 //Injected application logic!
-// builder.Services.AddApplication();
-// builder.Services.AddInfrastructure(configuration);
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(configuration);
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
@@ -35,7 +35,7 @@ builder.Services.AddHealthChecks()
     .AddCheck<SampleHealthCheck>("Sample");
 builder.Services.AddHealthChecksUI(setup =>
     {
-        setup.SetHeaderText("Storage providers demo");
+        setup.SetHeaderText("Clubs providers demo");
         //Maximum history entries by endpoint
         setup.MaximumHistoryEntriesPerEndpoint(50);
         //One endpoint is configured in appsettings, let's add another one programatically
@@ -53,19 +53,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 // else
-// {
-//     // app.UseHttpsRedirection();
-//     // app.UseAuthorization();
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
+{
+    // app.UseHttpsRedirection();
+    // app.UseAuthorization();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 
 app
 .UseRouting()
 .UseEndpoints(config => {
-    //config.MapControllers();
-    //config.MapHealthChecksUI();
+    config.MapControllers();
     config.MapHealthChecks("/healthz", new HealthCheckOptions()
         {
             Predicate = _ => true,
@@ -82,6 +81,6 @@ app
 app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
 // healthchecks-ui
 
-// app.MapControllers();
+ServiceExtensions.RunDBMigration(builder.Services);
 
 app.Run();

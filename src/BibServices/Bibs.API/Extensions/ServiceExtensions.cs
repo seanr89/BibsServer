@@ -39,7 +39,7 @@ public static class ServiceExtensions
         }
         catch(Exception e)
         {
-            Console.WriteLine($"Exception caught: {e.Message}");
+            Console.WriteLine($"RunDB Migrate - Exception caught: {e.Message}");
         }
     }
 }
