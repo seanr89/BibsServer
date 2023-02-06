@@ -40,6 +40,7 @@ builder.Services.AddHealthChecksUI(setup =>
         setup.MaximumHistoryEntriesPerEndpoint(50);
         //One endpoint is configured in appsettings, let's add another one programatically
         setup.AddHealthCheckEndpoint("Endpoint2", "/random-health");
+        setup.AddHealthCheckEndpoint("Test", "/healthz");
     })
     .AddInMemoryStorage();
 

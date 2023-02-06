@@ -16,6 +16,7 @@ public static class DependencyInjection
             options.UseNpgsql(configuration.GetValue<string>("PostgreSQL:ConnectionString")));
 
         services.AddTransient<IClubsRepository, ClubsRepository>();
+        services.AddTransient<IMemberRepository, MemberRepository>();
         return services;
     }
 }

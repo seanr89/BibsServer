@@ -11,10 +11,6 @@ namespace Infrastructure.Repos;
 public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
 {
     protected AppDbContext _context { get; set; }
-    //protected readonly IDbContextFactory _factory;
-    public RepositoryBase()
-    {
-    }
 
     public void SetContext(AppDbContext context)
     {
