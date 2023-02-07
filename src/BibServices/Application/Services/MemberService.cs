@@ -6,6 +6,7 @@ namespace Application.Services;
 
 /// <summary>
 /// Application service for interacting with repos and infra
+/// Members accessibility
 /// </summary>
 public sealed class MemberService
 {

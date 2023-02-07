@@ -8,6 +8,7 @@ public static class DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddTransient<ClubService>();
+        services.AddTransient<MemberService>();
         return services;
     }
 }
