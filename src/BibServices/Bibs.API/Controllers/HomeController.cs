@@ -22,6 +22,12 @@ public class HomeController : ControllerBase
         return Ok("Alive");
     }
 
+    /// <summary>
+    /// Additional End-point to test Db connectivity
+    /// </summary>
+    /// <returns>ActionResult message</returns>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("DbContext")]
     public async Task<IActionResult> CheckDbContext()
     {
