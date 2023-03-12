@@ -1,7 +1,6 @@
 using Application.Services;
 using Bibs.API.DTOs;
 using Domain;
-using Infrastructure.Contexts;
 using Microsoft.AspNetCore.Mvc;
 namespace Bibs.API.Controllers;
 
@@ -20,14 +19,16 @@ public class GeneratorController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Generate(List<MemberDTO> memberDTOs)
+    [ProducesResponseType(typeof(IEnumerable<Team>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult Generate(List<Member> memberDTOs)
     {
-        List<Member> members = new List<Member>();
-        memberDTOs.ForEach(m => {
-            members.Add((Member)m);
-        });
+        // List<Member> members = new List<Member>();
+        // memberDTOs.ForEach(m => {
+        //     members.Add((Member)m);
+        // });
 
-        var res = _generator.Generate(members);
+        var res = _generator.Generate(memberDTOs);
         if(res != null)
             return Ok(res);
         
