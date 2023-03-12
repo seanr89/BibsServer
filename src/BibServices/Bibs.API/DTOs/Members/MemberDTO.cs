@@ -22,5 +22,14 @@ public class MemberDTO
         };
     }
 
+    public static implicit operator Member(MemberDTO model)
+    {
+        return new Member(
+            model.Email,
+            model.Name,
+            model.Active,
+            model.BaseRating);
+    }
+
     #endregion
 }

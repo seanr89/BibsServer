@@ -1,3 +1,6 @@
+using Application.Services;
+using Bibs.API.DTOs;
+using Domain;
 using Infrastructure.Contexts;
 using Microsoft.AspNetCore.Mvc;
 namespace Bibs.API.Controllers;
@@ -17,9 +20,17 @@ public class GeneratorController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Generate(List<Member> members)
+    public async Task<IActionResult> Generate(List<MemberDTO> memberDTOs)
     {
-        throw new NotImplementedException());
-        //return BadRequest("Save failed");
+        List<Member> members = new List<Member>();
+        memberDTOs.ForEach(m => {
+            members.Add((Member)m);
+        });
+
+        var res = _generator.Generate(members);
+        if(res != null)
+            return Ok(res);
+        
+        return BadRequest("Generate failed");
     }
 }

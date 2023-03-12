@@ -35,6 +35,11 @@ public class Member : AuditableEntity
         this.Active = active;
     }
 
+    public Member(string email, string name, bool active, double rating) : this(email, name, active)
+    {
+        this.BaseRating = rating;
+    }
+
     /// <summary>
     /// 
     /// </summary>
