@@ -11,24 +11,17 @@ namespace Application.Services;
 public sealed class MemberService
 {
     private readonly ILogger<MemberService> _logger;
-    public MemberService(ILogger<MemberService> logger)
+    private readonly IMemberRepository _memberRepo;
+    public MemberService(ILogger<MemberService> logger, IMemberRepository memberRepo)
     {
         ArgumentNullException.ThrowIfNull(logger, "logger");
         _logger = logger;
+        _memberRepo = memberRepo;
     }
 
-    public async Task<IEnumerable<Member>> GetAllMembers()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<Member>> GetAllMembers() => await _memberRepo.GetAllMembersAsync();
 
-    public async Task<Member?> GetMemberById(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<Member?> GetMemberById(Guid id) => await _memberRepo.GetMemberAsync(id);
 
-    public async Task<Guid> CreateMember(Member membr)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<int> CreateMember(Member membr) => await _memberRepo.CreateAsync(membr);
 }

@@ -18,7 +18,7 @@ public class TeamGenerator
     /// </summary>
     /// <param name="members"></param>
     /// <returns></returns>
-    public async Task<List<Team>> Generate(List<Member> members)
+    public List<Team>? Generate(List<Member> members)
     {
         if(!members.Any())
             return null;
