@@ -2,7 +2,7 @@
 
 set -e -u #Exit immediately if a command exits with a non-zero status.
 
-echo "Executing script!"
+echo "Executing DB script!"
 
 docker run --name postgresql \
     -e POSTGRES_USER=postgres_user \
@@ -11,4 +11,4 @@ docker run --name postgresql \
     -p 5432:5432 \
     -d postgres
 
-echo "App Complete!"
+echo "DB Setup Complete!"

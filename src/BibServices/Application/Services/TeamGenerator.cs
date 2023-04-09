@@ -14,7 +14,7 @@ public class TeamGenerator
     }
 
     /// <summary>
-    /// 
+    /// Basic generator of teams using a random shuffle technique
     /// </summary>
     /// <param name="members"></param>
     /// <returns></returns>

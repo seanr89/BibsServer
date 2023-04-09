@@ -21,6 +21,10 @@ public class Team
 
     #region Player
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="members"></param>
     public void AddPlayersByMembers(List<Member> members)
     {
         if(!members.Any())
@@ -31,6 +35,11 @@ public class Team
         });
     }
 
+    /// <summary>
+    /// Modify and create a Player from Member
+    /// </summary>
+    /// <param name="member"></param>
+    /// <returns>A player object</returns>
     Player ConvertMemberToPlayer(Member member)
     {
         return new Player()
