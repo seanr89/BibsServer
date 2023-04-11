@@ -1,7 +1,7 @@
 namespace Domain;
 
 /// <summary>
-/// New planned match record
+/// Event based record to handle match details, teams and invites
 /// TODO
 /// </summary>
 public record Event
