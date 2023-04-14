@@ -11,6 +11,7 @@ public class Player : AuditableEntity
     public string Name { get; set; }
     public bool Active { get; private set; }
     public bool IsMember { get; private set; }
+    public double Rating { get; set; }
     /// <summary>
     /// Details for the specific club
     /// </summary>

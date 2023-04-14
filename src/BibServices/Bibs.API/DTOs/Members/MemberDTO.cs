@@ -2,12 +2,12 @@ using Domain;
 
 namespace Bibs.API.DTOs;
 
-public class MemberDTO
+public record MemberDTO
 {
     public Guid Id { get; private set; }
-    public string Email { get; private set; }
-    public string Name { get; private set; }
-    public bool Active { get; private set; }
+    public string Email { get; set; }
+    public string Name { get; set; }
+    public bool Active { get; set; }
     public double BaseRating { get; set; }
 
     #region Implicit DTO Mapping
@@ -20,6 +20,15 @@ public class MemberDTO
             Active = model.Active,
             BaseRating = model.BaseRating
         };
+    }
+
+    public static implicit operator Member(MemberDTO model)
+    {
+        return new Member(
+            model.Email,
+            model.Name,
+            model.Active,
+            model.BaseRating);
     }
 
     #endregion

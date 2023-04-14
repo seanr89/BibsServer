@@ -21,7 +21,7 @@ public static class DbSeeding
     {
         if (!context.Clubs.Any())
         {
-            context.Clubs.Add(CreateDefaultClub());
+            context.Clubs.Add(CreateDefaultClubWithMembers());
             try
             {
                 await context.SaveChangesAsync();
@@ -35,7 +35,7 @@ public static class DbSeeding
 
     #region Club Default
 
-    static Club CreateDefaultClub()
+    static Club CreateDefaultClubWithMembers()
     {
         var club = new Club("IT Science Park", true, false);
 

@@ -10,7 +10,7 @@ public class MemberRepository : IMemberRepository
     private readonly AppDbContext _context;
     public MemberRepository(AppDbContext context)
     {
-        ArgumentNullException.ThrowIfNull(context, "dbContext");
+        ArgumentNullException.ThrowIfNull(context, "context");
         _context = context;
     }
 
@@ -21,18 +21,9 @@ public class MemberRepository : IMemberRepository
         return result;
     }
 
-    public async Task<IEnumerable<Member>> GetActiveMembersAsync()
-    {
-        return await _context.Members.Where(c => c.Active == true).ToListAsync();
-    }
+    public async Task<IEnumerable<Member>> GetActiveMembersAsync() => await _context.Members.Where(c => c.Active == true).ToListAsync();
 
-    public async Task<IEnumerable<Member>> GetAllMembersAsync()
-    {
-        return await _context.Members.ToListAsync();
-    }
+    public async Task<IEnumerable<Member>> GetAllMembersAsync() => await _context.Members.ToListAsync();
 
-    public async Task<Member?> GetMemberAsync(Guid id)
-    {
-        return await _context.Members.FirstOrDefaultAsync(m => m.Id == id);
-    }
+    public async Task<Member?> GetMemberAsync(Guid id) => await _context.Members.FirstOrDefaultAsync(m => m.Id == id);
 }

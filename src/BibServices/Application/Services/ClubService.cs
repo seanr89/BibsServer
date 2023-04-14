@@ -18,15 +18,9 @@ public sealed class ClubService
         _clubsRepository = clubsRepository;
     }
 
-    public async Task<IEnumerable<Club>> GetAllClubs()
-    {
-        return await _clubsRepository.GetAllClubsAsync();
-    }
+    public async Task<IEnumerable<Club>> GetAllClubs() => await _clubsRepository.GetAllClubsAsync();
 
-    public async Task<Club?> GetClubById(Guid id)
-    {
-        return await _clubsRepository.GetClubAsync(id);
-    }
+    public async Task<Club?> GetClubById(Guid id) => await _clubsRepository.GetClubAsync(id);
 
     public async Task<Guid> CreateClub(Club club)
     {

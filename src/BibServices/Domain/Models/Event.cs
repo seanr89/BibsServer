@@ -1,7 +1,7 @@
 namespace Domain;
 
 /// <summary>
-/// New planned match record
+/// Event based record to handle match details, teams and invites
 /// TODO
 /// </summary>
 public record Event
@@ -11,6 +11,7 @@ public record Event
     public DateTime Date { get; private set; }
     public string Location { get; private set; }
     public bool Private { get; private set; }
+    public EventStatus Status { get; set; }
 
     public Event()
     {
@@ -21,7 +22,7 @@ public record Event
     public override string? ToString()
     {
         return base.ToString();
-        //return String.Format("Nmae:{0}, Type:{1}",Key,Type);
+        //return String.Format("Name:{0}, Type:{1}",Key,Type);
     }
 
     #endregion

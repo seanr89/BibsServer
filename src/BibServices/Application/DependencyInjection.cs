@@ -9,6 +9,7 @@ public static class DependencyInjection
     {
         services.AddTransient<ClubService>();
         services.AddTransient<MemberService>();
+        services.AddTransient<TeamGenerator>();
         return services;
     }
 }
